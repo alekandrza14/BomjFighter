@@ -10,9 +10,10 @@ public class Enemye : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public float hp = 100;
     public TMP_Text Hp;
+    //boostspeed
     private void OnCollisionStay2D(Collision2D collision)
     {
-        body.AddForceY(1, ForceMode2D.Impulse);
+        body.AddForceY(1 * (VarSave.GetBool("boostjump") ? 2 : 1), ForceMode2D.Impulse);
         if (collision.collider.GetComponent<Player>())
         {
             SceneManager.LoadScene(2);
@@ -42,7 +43,7 @@ public class Enemye : MonoBehaviour
     {
         bool vector = player.transform.position.x > transform.position.x;
         spriteRenderer.flipX = vector;
-        body.velocity = new Vector2(((vector ? 1 : -1) * 0.2f)+ Input.GetAxisRaw("Horizontal") * -5, body.velocity.y);
+        body.velocity = new Vector2(((vector ? 1 : -1) * 0.2f)+ Input.GetAxisRaw("Horizontal") * (-5* (VarSave.GetBool("boostspeed")?2:1)), body.velocity.y);
 
     }
 }
